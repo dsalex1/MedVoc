@@ -1,10 +1,40 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="main">
+    <header id="header">
+      <nav class="navbar navbar-dark bg-secondary d-flex p-0 fixed-bottom">
+        <div class="container px-3 py-2">
+          <router-link to="/" class="navbar-brand align-bottom router-link-active">
+            <div class="nav-brand">
+              <span class>MedVoc</span>
+            </div>
+          </router-link>
+          <router-link to="/weekly" class>
+            <div class="nav-item">
+              <i class="fas fa-tasks"></i>
+              <span class="nav-text">Week Progress</span>
+            </div>
+          </router-link>
+          <router-link to="/" class>
+            <div class="nav-item">
+              <i class="fas fa-language"></i>
+              <span class="nav-text">Daily Vocab</span>
+            </div>
+          </router-link>
+          <router-link to="/profiles" class>
+            <div class="nav-item">
+              <i class="fas fa-user"></i>
+              <span class="nav-text">Profiles</span>
+            </div>
+          </router-link>
+          <div class="m-n3 ml-n4 p-3 px-4 mr-1 text-white" type="button" @click="$router.go(-1)">
+            <i class="fas fa-lg fa-chevron-left"></i>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <router-view></router-view>
     </div>
-    <router-view />
   </div>
 </template>
 
@@ -17,16 +47,26 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.nav-item {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 20px;
+  color: white;
+}
+.fas {
+  display: inline;
+}
+.nav-text {
+  display: block;
+  font-size: 11px;
+}
+.navbar-toggler {
+  display: none;
 }
 </style>

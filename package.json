@@ -16,6 +16,7 @@
     "vue-router": "^3.2.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.162",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "@vue/cli-plugin-babel": "^4.5.7",
@@ -40,15 +41,17 @@
     "env": {
       "node": true
     },
+    "plugins": [
+      "@typescript-eslint/eslint-plugin"
+    ],
     "extends": [
       "plugin:vue/essential",
       "eslint:recommended",
-      "@vue/typescript/recommended",
-      "@vue/prettier",
-      "@vue/prettier/@typescript-eslint"
+      "@vue/typescript/recommended"
     ],
     "parserOptions": {
-      "ecmaVersion": 2020
+      "ecmaVersion": 2020,
+      "parser": "@typescript-eslint/parser"
     },
     "rules": {}
   },
