@@ -1,5 +1,5 @@
 import vocabulary, { VocabularyType } from "./vocabulary";
-type Progress = {
+export type Progress = {
     correctCounter: number;
 };
 
@@ -77,4 +77,11 @@ export const getCurrentGroup = (): Group => getItemOrElse("currentGroup", null);
 
 export const setCurrentGroup = (data: Group) => {
     localStorage.setItem("currentGroup", JSON.stringify(data));
+};
+
+export const updateVocProgress = (index: number, progress: Progress) => {
+    const data = getCurrentProfile();
+    data.vocabulary[index].progress = progress;
+    console.log(data, progress);
+    updateCurrentProfile(data);
 };
