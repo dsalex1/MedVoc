@@ -32,13 +32,18 @@
                 </div>
             </nav>
         </header>
-        <div style="padding-left:15px;padding-right:15px">
-            <router-view></router-view>
+        <div style="padding-left:15px;padding-right:15px;minHeight:calc(100vh - 70px);display:flex">
+            <router-view style="margin:auto; width:100%"></router-view>
         </div>
     </div>
 </template>
 
 <style lang="scss">
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
