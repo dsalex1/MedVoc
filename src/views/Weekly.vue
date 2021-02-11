@@ -6,8 +6,8 @@
                 :currentGroup="currentWeek"
                 :profile="profile"
                 :key="JSON.stringify(currentWeek)"
-                :progress="getWeekProgress()"
                 @progress="onProgress($event)"
+                :progress="getWeekProgress()"
                 :isRemaining="v => isRemaining(v)"
             />
             <div v-if="getWeekProgress() == '100%'">
