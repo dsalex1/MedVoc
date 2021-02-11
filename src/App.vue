@@ -1,5 +1,5 @@
 <template>
-    <div id="main">
+    <div id="main" style="overflow:hidden">
         <header id="header">
             <nav class="navbar navbar-dark bg-secondary d-flex p-0 fixed-bottom">
                 <div class="container px-3 py-2">
@@ -33,7 +33,7 @@
             </nav>
         </header>
         <div style="padding-left:15px;padding-right:15px;minHeight:calc(100vh - 70px);display:flex">
-            <router-view style="margin:auto; width:100%"></router-view>
+            <router-view style="margin:auto; width:100%;"></router-view>
         </div>
     </div>
 </template>
