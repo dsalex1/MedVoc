@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span style="word-break: break-word;">
         <slot></slot>
     </span>
 </template>
@@ -40,8 +40,15 @@ export default {
             const stepSize = this.unit === "px" ? 1 : 0.05;
             element.style.fontSize = fontSize + this.unit;
             while (element.offsetHeight > this.targetLineCount && fontSize > this.min) {
+                console.log(this.$el.innerHTML, fontSize);
                 fontSize -= stepSize;
                 element.style.fontSize = fontSize + this.unit;
+            }
+
+            if (this.targetLineCount < 4 && fontSize < 1.5) {
+                this.targetLineCount += 1;
+                this.calculate();
+                return;
             }
             // found it!!
             // reset the styles

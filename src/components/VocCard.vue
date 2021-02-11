@@ -3,7 +3,7 @@
         <template :slot="inverted ? 'back' : 'front'">
             <div class="card h-30vh" :style="{ backgroundColor: getVocBgColor(voc) }">
                 <div class="card-header">
-                    <fit-text>{{ getVocType(voc) }}</fit-text>
+                    {{ getVocType(voc) }}
                 </div>
                 <div class="card-body d-flex align-items-center justify-content-center" :style="{ color: 'blue' }">
                     <fit-text>{{ getVocFront(voc) }}</fit-text>
@@ -13,7 +13,7 @@
         <template :slot="inverted ? 'front' : 'back'">
             <div class="card h-30vh" :style="{ backgroundColor: getVocBgColor(voc) }">
                 <div class="card-header">
-                    <fit-text>{{ getVocType(voc) }}</fit-text>
+                    {{ getVocType(voc) }}
                 </div>
                 <div class="card-body d-flex align-items-center justify-content-center" :style="{ color: 'green' }">
                     <fit-text>{{ getVocBack(voc) }}</fit-text>
