@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.4b1783347e1d02181571608819f56980.js"
+  "/precache-manifest.bb462694012ca0b7aeac8c223ccd7be0.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vocabularyapp"});

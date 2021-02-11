@@ -1,6 +1,7 @@
 import vocabulary, { VocabularyType } from "./vocabulary";
 export type Progress = {
     correctCounter: number;
+    checkedCounter: number;
 };
 
 export interface Profile {
@@ -10,7 +11,7 @@ export interface Profile {
 
 const EMPTY_PROFILE: Profile = {
     id: -1,
-    vocabulary: vocabulary.map(v => ({ ...v, progress: { correctCounter: 0 } }))
+    vocabulary: vocabulary.map(v => ({ ...v, progress: { correctCounter: 0, checkedCounter: 0 } }))
 };
 
 const getItemOrElse = <T>(key: string, elseVal: T = {} as T) => {
