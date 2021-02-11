@@ -46,7 +46,7 @@ export const updateCurrentProfile = (data: Profile) => {
 };
 
 export const importProfile = (data: Profile) => {
-    data.id = Math.ceil(Math.random() * 2147483648);
+    data.id = Math.ceil(Math.random() * 2147483);
     const profiles = getProfiles();
     profiles.push(data);
     localStorage.setItem("profiles", JSON.stringify(profiles));
@@ -77,6 +77,12 @@ export const getCurrentGroup = (): Group => getItemOrElse("currentGroup", null);
 
 export const setCurrentGroup = (data: Group) => {
     localStorage.setItem("currentGroup", JSON.stringify(data));
+};
+
+export const getCurrentWeek = (): Group => getItemOrElse("currentWeek", null);
+
+export const setCurrentWeek = (data: Group) => {
+    localStorage.setItem("currentWeek", JSON.stringify(data));
 };
 
 export const updateVocProgress = (index: number, progress: Progress) => {

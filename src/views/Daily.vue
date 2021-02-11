@@ -1,30 +1,41 @@
 <template>
     <div v-if="!loading">
-        <div class="progress mt-2 ">
-            <div
-                class="progress-bar progress-bar-striped bg-success progress-bar-animated"
-                role="progressbar"
-                :style="{ width: getGroupProgress() }"
-            ></div>
-        </div>
-        <div v-if="getGroupProgress() != '100%'" style="position:relative">
-            <VocCard v-if="nextVoc !== undefined" :voc="nextVoc" />
-            <VocCard v-if="nextVoc === undefined && currentVoc !== undefined" :voc="currentVoc" />
-            <div style="position:absolute;top:0px;width:calc(100vw - 30px);">
-                <transition :name="currentVocAnimation" @after-leave="calcNextVoc">
-                    <v-touch
-                        v-if="currentVocStatus == null"
-                        @swiperight="setCurrentVocStatus('correct')"
-                        @swipeleft="setCurrentVocStatus('incorrect')"
-                        class="flipper card-bg-white"
-                    >
-                        <VocCard v-if="currentVoc" :voc="currentVoc" />
-                    </v-touch>
-                </transition>
+        <div v-if="profile">
+            <div class="progress mt-2 ">
+                <div
+                    class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+                    role="progressbar"
+                    :style="{ width: getGroupProgress() }"
+                ></div>
+            </div>
+            <div v-if="getGroupProgress() != '100%'" style="position:relative">
+                <VocCard v-if="nextVoc !== undefined" :voc="nextVoc" :inverted="false" />
+                <VocCard v-if="nextVoc === undefined && currentVoc !== undefined" :voc="currentVoc" :inverted="false" />
+                <div style="position:absolute;top:0px;width:calc(100vw - 30px);">
+                    <transition :name="currentVocAnimation" @after-leave="calcNextVoc">
+                        <v-touch
+                            v-if="currentVocStatus == null"
+                            @swiperight="setCurrentVocStatus('correct')"
+                            @swipeleft="setCurrentVocStatus('incorrect')"
+                            class="flipper card-bg-white"
+                        >
+                            <VocCard v-if="currentVoc" :voc="currentVoc" :inverted="false" />
+                        </v-touch>
+                    </transition>
+                </div>
+            </div>
+            <div v-else>
+                <div class="alert alert-success mt-3">yay! all done for today 😄</div>
+                <button class="btn btn-primary float-right" @click="generateNewGroup()">start new group</button>
             </div>
         </div>
         <div v-else>
-            <button class="btn btn-primary" @click="generateNewGroup()">new Group</button>
+            <div class="alert alert-danger mt-3">
+                No active Profile, go to Profile to make a profile active, or to create a new one.
+                <button class="btn btn-primary" @click="generateNewGroup()">
+                    profile
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -62,8 +73,15 @@ export default class Daily extends Vue {
         this.loading = true;
         this.currentGroup = API.getCurrentGroup();
         this.profile = API.getCurrentProfile();
+        if (!this.profile) {
+            this.loading = false;
+            return;
+        }
         if (!this.currentGroup || this.currentGroup.profileId != this.profile.id) {
+            API.setCurrentGroup(null as any);
+            API.setCurrentWeek(null as any);
             this.generateNewGroup();
+            this.loading = false;
             return;
         }
         this.currentVocIndex = this.getRemainingIndicies()[0];
@@ -113,16 +131,21 @@ export default class Daily extends Vue {
             .map((v, id) => ({ v, id }))
             .filter(({ v }) => v.progress.correctCounter < TIMES_CORRECT_DONE)
             .map(({ id }) => id);
-        console.log({
-            cov: this.profile.vocabulary,
-            unfinishedVocs,
-            test: this.profile.vocabulary.filter(v => v.progress.correctCounter < TIMES_CORRECT_DONE)
-        });
+
         const choosenVocs = this.choose(GROUP_SIZE, unfinishedVocs);
+
+        const currentWeek = API.getCurrentWeek() ?? { profileId: this.profile.id, indicies: [] };
+        currentWeek.indicies = [...currentWeek.indicies, ...this.currentGroup.indicies];
+        API.setCurrentWeek(currentWeek);
+
         this.currentGroup = { profileId: this.profile.id, indicies: choosenVocs.map(id => ({ id })) };
         API.setCurrentGroup(this.currentGroup);
-        this.currentVocIndex = this.getRemainingIndicies()[0];
-        this.nextVocIndex = this.getRemainingIndicies()[0];
+        //FIXME: have to reload page because swipe detection doesnt work after detaching from dom somehow
+        //this.currentVocIndex = this.getRemainingIndicies()[0];
+        //this.nextVocIndex = this.getRemainingIndicies()[0];
+        this.currentVocIndex = -1;
+        this.nextVocIndex = -1;
+        this.$router.go(0);
     }
 }
 </script>

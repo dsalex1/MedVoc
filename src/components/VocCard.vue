@@ -1,6 +1,6 @@
 <template>
     <FlipCard>
-        <template slot="front">
+        <template :slot="inverted ? 'back' : 'front'">
             <div class="card h-30vh" :style="{ backgroundColor: getVocBgColor(voc) }">
                 <div class="card-header">
                     {{ getVocType(voc) }}
@@ -10,7 +10,7 @@
                 </div>
             </div>
         </template>
-        <template slot="back">
+        <template :slot="inverted ? 'front' : 'back'">
             <div class="card h-30vh" :style="{ backgroundColor: getVocBgColor(voc) }">
                 <div class="card-header">
                     {{ getVocType(voc) }}
@@ -31,7 +31,11 @@ export default class VocCard extends Vue {
     @Prop()
     private voc!: VocabularyType;
 
+    @Prop()
+    private inverted!: boolean;
+
     getVocFront(v: VocabularyType) {
+        console.log("stuff", this.inverted);
         switch (v.typ) {
             case "M":
             case "G":
