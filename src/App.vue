@@ -32,7 +32,7 @@
                 </div>
             </nav>
         </header>
-        <div style="padding-left:15px;padding-right:15px;minHeight:calc(100vh - 70px);display:flex">
+        <div style="padding-left:15px;padding-right:15px;minHeight:calc(100vh - 72px);display:flex">
             <router-view style="margin:auto; width:100%;"></router-view>
         </div>
     </div>
