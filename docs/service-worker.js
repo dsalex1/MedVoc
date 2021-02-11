@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/MedVoc/precache-manifest.2c0ff7c829957c3c237d730db40069d5.js"
+  "/MedVoc/precache-manifest.2218ccf1d962dd396634e0fc9c69bde9.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vocabularyapp"});
