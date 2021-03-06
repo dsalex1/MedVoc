@@ -10,9 +10,7 @@ import VueTouch from "vue-touch";
 import "bootstrap/dist/css/bootstrap.css";
 
 import fitText from "./components/FitText.vue";
-import VueSwing from "vue-swing";
 
-Vue.component("vue-swing", VueSwing);
 Vue.component("fit-text", fitText);
 Vue.use(VueTouch, { name: "v-touch" });
 

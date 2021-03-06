@@ -1,9 +1,21 @@
 <template>
-    <div style="margin-bottom:80px;margin-top:20px">
+    <div style="margin-bottom: 80px; margin-top: 20px">
+        <div class="card mb-2">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>Settings</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div>Notification Status: {{ notificationStatus ? "activated" : "deactivated" }}</div>
+                <button class="btn btn-primary" @click="activateNotifications">{{ notificationStatus ? "re" : "" }}activate Notifications</button>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Profiles</h2>
+                    <h3>Profiles</h3>
                     <div class="d-flex">
                         <button class="btn btn-primary" @click="newProfile"><i class="fas fa-plus"></i> new profile</button>
                         <importProfile @newProfile="refresh" />
@@ -48,6 +60,7 @@ import * as API from "../API";
 export default class Daily extends Vue {
     profiles: API.Profile[] = [];
     currentProfileId!: string;
+    notificationStatus = false;
 
     mounted() {
         this.refresh();
@@ -56,6 +69,7 @@ export default class Daily extends Vue {
     refresh() {
         this.profiles = API.getProfiles();
         this.currentProfileId = API.getCurrentProfileId();
+        this.notificationStatus = API.getNotificationStatus();
     }
 
     newProfile() {
@@ -70,6 +84,9 @@ export default class Daily extends Vue {
     deleteProfile(id: number) {
         if (window.confirm("do you really want to delete #" + id + "?")) API.deleteProfile(id);
         this.refresh();
+    }
+    activateNotifications() {
+        console.log("hello");
     }
 }
 </script>

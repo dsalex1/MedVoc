@@ -92,3 +92,9 @@ export const updateVocProgress = (index: number, progress: Progress) => {
     console.log(data, progress);
     updateCurrentProfile(data);
 };
+
+export const getNotificationStatus = (): boolean => getItemOrElse("notificationStatus", false);
+
+export const setNotificationStatus = (s: boolean) => {
+    localStorage.setItem("notificationStatus", JSON.stringify(s));
+};

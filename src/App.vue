@@ -1,5 +1,5 @@
 <template>
-    <div id="main" style="overflow:hidden">
+    <div id="main" style="overflow: hidden">
         <header id="header">
             <nav class="navbar navbar-dark bg-secondary d-flex p-0 fixed-bottom">
                 <div class="container px-3 py-2">
@@ -20,10 +20,10 @@
                             <span class="nav-text">Daily Vocab</span>
                         </div>
                     </router-link>
-                    <router-link to="/profiles" class>
+                    <router-link to="/settings" class>
                         <div class="nav-item">
                             <i class="fas fa-user"></i>
-                            <span class="nav-text">Profiles</span>
+                            <span class="nav-text">Settings</span>
                         </div>
                     </router-link>
                     <div class="m-n3 ml-n4 p-3 px-4 mr-1 text-white" type="button" @click="$router.go(-1)">
@@ -32,8 +32,8 @@
                 </div>
             </nav>
         </header>
-        <div style="padding-left:15px;padding-right:15px;minHeight:calc(100vh - 72px);display:flex">
-            <router-view style="margin:auto; width:100%;"></router-view>
+        <div style="padding-left: 15px; padding-right: 15px; display: flex; min-height: calc(100vh - 72px)">
+            <router-view style="margin: auto; width: 100%"></router-view>
         </div>
     </div>
 </template>
