@@ -14,16 +14,14 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/MedVoc/precache-manifest.cb14dc4b45515e0bf2419407a4d2a8a8.js"
+  "/precache-manifest.da6bb74cf8b4960363b7caff14687a76.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vocabularyapp"});
 
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-});
+workbox.core.skipWaiting();
+
+workbox.core.clientsClaim();
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
@@ -32,3 +30,7 @@ self.addEventListener('message', (event) => {
  */
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("index.html"));
+
+workbox.routing.registerRoute(/\.*/, new workbox.strategies.NetworkFirst(), 'GET');
