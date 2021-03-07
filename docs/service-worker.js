@@ -1,23 +1,13 @@
+importScripts("/precache-manifest.b227eb529a2647201eae4d73ad7e93d6.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+
 /**
  * Welcome to your Workbox-powered service worker!
  *
  * You'll need to register this file in your web app and you should
  * disable HTTP caching for this file too.
  * See https://goo.gl/nhQhGp
- *
- * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build configuration
- * and re-run your build process.
- * See https://goo.gl/2aRDsh
  */
-
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
-
-importScripts(
-  "/MedVoc/precache-manifest.97855d69396935a7068c16265e1a069a.js"
-);
-
-workbox.core.setCacheNameDetails({prefix: "vocabularyapp"});
+workbox.core.setCacheNameDetails({ prefix: "vocabularyapp" });
 
 workbox.core.skipWaiting();
 
@@ -33,4 +23,24 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("index.html"));
 
-workbox.routing.registerRoute(/\.*/, new workbox.strategies.NetworkFirst(), 'GET');
+workbox.routing.registerRoute(/\.*/, new workbox.strategies.NetworkFirst(), "GET");
+
+self.addEventListener("notificationclick", function(event) {
+    const targetUrl = new URL("./" + event.notification.tag.split("|")[0], location).href;
+    event.notification.close();
+    console.log("in handler, i suppose", targetUrl, location);
+    event.waitUntil(
+        clients.matchAll().then(matchedClients => {
+            for (let client of matchedClients) {
+                if (client.url.indexOf(targetUrl) >= 0) {
+                    return client.focus();
+                }
+            }
+
+            return clients.openWindow(targetUrl).then(function(client) {
+                client.focus();
+            });
+        })
+    );
+});
+
