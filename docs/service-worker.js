@@ -1,4 +1,4 @@
-importScripts("/MedVoc/precache-manifest.1d19968a2e560906dd1db308fe862687.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/MedVoc/precache-manifest.87cc81c985497b2db8c046cc17f8162a.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /**
  * Welcome to your Workbox-powered service worker!
