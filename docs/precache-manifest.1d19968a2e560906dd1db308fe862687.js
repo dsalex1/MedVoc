@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "169db1fae79cbab85c30",
+    "revision": "873a35b20b9909cc467a",
     "url": "/MedVoc/css/app.96e227c5.css"
   },
   {
@@ -8,12 +8,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/MedVoc/css/chunk-vendors.db58f2bd.css"
   },
   {
-    "revision": "e2a0d0a59f7790abfc4147b45e32852f",
+    "revision": "9d283cd48b07033790eb385ef88125a4",
     "url": "/MedVoc/index.html"
   },
   {
-    "revision": "169db1fae79cbab85c30",
-    "url": "/MedVoc/js/app.06a7aad7.js"
+    "revision": "873a35b20b9909cc467a",
+    "url": "/MedVoc/js/app.72ddcf58.js"
   },
   {
     "revision": "5841d3e815b42c64c532",

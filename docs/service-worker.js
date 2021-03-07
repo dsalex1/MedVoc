@@ -1,4 +1,4 @@
-importScripts("/MedVoc/precache-manifest.97855d69396935a7068c16265e1a069a.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/MedVoc/precache-manifest.1d19968a2e560906dd1db308fe862687.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /**
  * Welcome to your Workbox-powered service worker!
@@ -26,7 +26,7 @@ workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("in
 workbox.routing.registerRoute(/\.*/, new workbox.strategies.NetworkFirst(), "GET");
 
 self.addEventListener("notificationclick", function(event) {
-    const targetUrl = new URL("./" + event.notification.tag.split("|")[0], location).href;
+    const targetUrl = new URL("./#/" + event.notification.tag.split("|")[0], location).href;
     event.notification.close();
     console.log("in handler, i suppose", targetUrl, location);
     event.waitUntil(
