@@ -8,16 +8,14 @@
                 :key="JSON.stringify(currentWeek)"
                 @progress="onProgress($event)"
                 :progress="getWeekProgress()"
-                :isRemaining="v => isRemaining(v)"
+                :isRemaining="(v) => isRemaining(v)"
             />
             <div v-if="getWeekProgress() == '100%'">
                 <div class="alert alert-success mt-3">yay! all checked 😄</div>
             </div>
             <div v-if="getWeekVocDone().length == currentWeekVoc.length">
                 <div class="card mt-3 mb-5">
-                    <div class="card-header">
-                        Overall Progress
-                    </div>
+                    <div class="card-header">Overall Progress</div>
                     <div class="card-body">
                         <table class="table">
                             <tbody>
@@ -34,14 +32,13 @@
             </div>
         </div>
         <div v-else>
-            <div class="alert alert-danger mt-3">
-                No active Profile, go to Profile to make a profile active, or to create a new one.
-            </div>
+            <div class="alert alert-danger mt-3">No active Profile, go to Profile to make a profile active, or to create a new one.</div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component, Vue } from "vue-property-decorator";
 import * as API from "../API";
 
@@ -53,8 +50,8 @@ export default class Weekly extends Vue {
     private currentWeek: API.Group = {} as API.Group;
     private profile: API.Profile = {} as API.Profile;
 
-    private getTypeCount(typ: any, completed: boolean) {
-        return this.profile.vocabulary.filter(v => v.typ == typ && (v.progress.checkedCounter >= TIMES_CHECKED_DONE || !completed)).length;
+    private getTypeCount(typ: string, completed: boolean) {
+        return this.profile.vocabulary.filter((v) => v.typ == typ && (v.progress.checkedCounter >= TIMES_CHECKED_DONE || !completed)).length;
     }
     private vocTypes = Object.entries({
         N: "Nouns",
@@ -63,13 +60,13 @@ export default class Weekly extends Vue {
         aS: "Adjective Suffixes",
         G: "Greek Vocabulary",
         GL: "Greek-Latin Vocabulary",
-        M: "Miscellaneous"
+        M: "Miscellaneous",
     });
 
     mounted() {
         this.loading = true;
         this.currentWeek = API.getCurrentWeek() ?? { profileId: this.profile.id, indicies: [] };
-        this.profile = API.getCurrentProfile();
+        this.profile = API.getCurrentProfile()!;
         if (!this.profile) {
             this.loading = false;
             return;
@@ -96,11 +93,11 @@ export default class Weekly extends Vue {
         return this.currentWeek.indicies.map(({ id }) => this.profile.vocabulary[id]);
     }
     getWeekVocDone() {
-        return this.currentWeekVoc.filter(v => v.progress.checkedCounter >= TIMES_CHECKED_DONE);
+        return this.currentWeekVoc.filter((v) => v.progress.checkedCounter >= TIMES_CHECKED_DONE);
     }
     getWeekProgress() {
         const progress =
-            this.currentWeekVoc.map(v => Math.min(v.progress.checkedCounter, TIMES_CHECKED_DONE)).reduce((a, c) => a + c, 0) /
+            this.currentWeekVoc.map((v) => Math.min(v.progress.checkedCounter, TIMES_CHECKED_DONE)).reduce((a, c) => a + c, 0) /
             (TIMES_CHECKED_DONE * this.currentWeekVoc.length);
 
         return Math.round(progress * 100) + "%";

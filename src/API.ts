@@ -1,4 +1,4 @@
-import vocabulary, { VocabularyType } from "./vocabulary";
+import vocabulary, { VocabularyType } from "./util/vocabulary";
 export type Progress = {
     correctCounter: number;
     checkedCounter: number;
@@ -23,11 +23,11 @@ const getItemOrElse = <T>(key: string, elseVal: T = {} as T) => {
 
 export const getProfiles = (): Profile[] => getItemOrElse("profiles", []);
 
-export const getCurrentProfileId = (): string => getItemOrElse("currentProfile", null);
+export const getCurrentProfileId = (): string => getItemOrElse("currentProfile", "");
 
 export const setCurrentProfile = (id: number) => localStorage.setItem("currentProfile", JSON.stringify(id));
 
-export const getCurrentProfile = (): Profile => {
+export const getCurrentProfile = (): Profile | undefined => {
     const id = getCurrentProfileId();
     const profiles = getProfiles();
     const found = profiles.find(p => p.id + "" == id);
@@ -36,7 +36,7 @@ export const getCurrentProfile = (): Profile => {
         setCurrentProfile(profiles[0].id);
         return profiles[0];
     }
-    return (undefined as unknown) as Profile;
+    return undefined;
 };
 
 export const updateCurrentProfile = (data: Profile) => {
@@ -74,20 +74,21 @@ export type Group = {
     }[];
 };
 
-export const getCurrentGroup = (): Group => getItemOrElse("currentGroup", null);
+export const getCurrentGroup = (): Group | null => getItemOrElse("currentGroup", null);
 
 export const setCurrentGroup = (data: Group) => {
     localStorage.setItem("currentGroup", JSON.stringify(data));
 };
 
-export const getCurrentWeek = (): Group => getItemOrElse("currentWeek", null);
+export const getCurrentWeek = (): Group | null => getItemOrElse("currentWeek", null);
 
-export const setCurrentWeek = (data: Group) => {
+export const setCurrentWeek = (data: Group | null) => {
     localStorage.setItem("currentWeek", JSON.stringify(data));
 };
 
 export const updateVocProgress = (index: number, progress: Progress) => {
     const data = getCurrentProfile();
+    if (!data) return;
     data.vocabulary[index].progress = progress;
     console.log(data, progress);
     updateCurrentProfile(data);

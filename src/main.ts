@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
-import "./registerServiceWorker";
+import "./util/registerServiceWorker";
 import router from "./router";
 import upperFirst from "lodash/upperFirst";
 import camelCase from "lodash/camelCase";

@@ -37,7 +37,18 @@
         </div>
     </div>
 </template>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import * as API from "./API";
+import { updatingScheduledNotifications } from "./util/notifications";
 
+@Component({})
+export default class VocCard extends Vue {
+    async mounted() {
+        if (await API.getNotificationStatus()) updatingScheduledNotifications();
+    }
+}
+</script>
 <style lang="scss">
 html,
 body {

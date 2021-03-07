@@ -6,7 +6,7 @@
                 :profile="profile"
                 :key="JSON.stringify(currentGroup)"
                 :progress="getGroupProgress()"
-                :isRemaining="v => isRemaining(v)"
+                :isRemaining="(v) => isRemaining(v)"
                 @progress="onProgress($event)"
             />
             <div v-if="getGroupProgress() == '100%'">
@@ -15,9 +15,7 @@
             </div>
         </div>
         <div v-else>
-            <div class="alert alert-danger mt-3">
-                No active Profile, go to Profile to make a profile active, or to create a new one.
-            </div>
+            <div class="alert alert-danger mt-3">No active Profile, go to Profile to make a profile active, or to create a new one.</div>
         </div>
     </div>
 </template>
@@ -37,8 +35,8 @@ export default class Daily extends Vue {
 
     mounted() {
         this.loading = true;
-        this.currentGroup = API.getCurrentGroup();
-        this.profile = API.getCurrentProfile();
+        this.currentGroup = API.getCurrentGroup()!;
+        this.profile = API.getCurrentProfile()!;
         if (!this.profile) {
             this.loading = false;
             return;
@@ -74,7 +72,7 @@ export default class Daily extends Vue {
 
         const choosenVocs = this.choose(GROUP_SIZE, unfinishedVocs);
 
-        this.currentGroup = { profileId: this.profile.id, indicies: choosenVocs.map(id => ({ id })) };
+        this.currentGroup = { profileId: this.profile.id, indicies: choosenVocs.map((id) => ({ id })) };
         API.setCurrentGroup(this.currentGroup);
     }
 
@@ -83,7 +81,7 @@ export default class Daily extends Vue {
     }
     getGroupProgress() {
         const progress =
-            this.currentGroupVoc.map(v => Math.min(v.progress.correctCounter, TIMES_CORRECT_DONE)).reduce((a, c) => a + c, 0) /
+            this.currentGroupVoc.map((v) => Math.min(v.progress.correctCounter, TIMES_CORRECT_DONE)).reduce((a, c) => a + c, 0) /
             (TIMES_CORRECT_DONE * this.currentGroupVoc.length);
 
         return Math.round(progress * 100) + "%";

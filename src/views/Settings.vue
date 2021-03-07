@@ -56,6 +56,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import * as API from "../API";
+import { updatingScheduledNotifications } from "../util/notifications";
+
 @Component({})
 export default class Daily extends Vue {
     profiles: API.Profile[] = [];
@@ -85,8 +87,14 @@ export default class Daily extends Vue {
         if (window.confirm("do you really want to delete #" + id + "?")) API.deleteProfile(id);
         this.refresh();
     }
-    activateNotifications() {
-        console.log("hello");
+    async activateNotifications() {
+        if (!("Notification" in window)) return alert("This browser does not support notifications");
+        if (!("showTrigger" in Notification.prototype))
+            return alert("This app relies on notification triggers for scheduling notifications which is not supported by this browser.");
+        if ((await Notification.requestPermission()) !== "granted") return alert("Permission not granted, cannot activate Permissions");
+
+        API.setNotificationStatus(true);
+        updatingScheduledNotifications();
     }
 }
 </script>

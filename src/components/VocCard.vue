@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { VocabularyType } from "../vocabulary";
+import { VocabularyType } from "../util/vocabulary";
 
 @Component({})
 export default class VocCard extends Vue {
@@ -58,7 +58,7 @@ export default class VocCard extends Vue {
             aS: "Adjective Suffixes",
             A: "Adjectives",
             GL: "Greek-Latin Vocabulary",
-            N: "Nouns"
+            N: "Nouns",
         }[v.typ];
     }
     getVocBgColor(v: VocabularyType) {
@@ -69,7 +69,7 @@ export default class VocCard extends Vue {
             aS: "#ff00ff15",
             A: "#00ffff15",
             GL: "#00000015",
-            N: "#ff000015"
+            N: "#ff000015",
         }[v.typ];
     }
     getVocBack(v: VocabularyType) {

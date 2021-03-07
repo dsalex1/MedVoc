@@ -12,6 +12,11 @@ const routes: Array<RouteConfig> = [
         component: Daily
     },
     {
+        path: "/daily",
+        name: "Daily",
+        component: Daily
+    },
+    {
         path: "/settings",
         name: "Settings",
         component: Settings

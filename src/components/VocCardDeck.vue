@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div class="progress mt-2 ">
+        <div class="progress mt-2">
             <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" :style="{ width: progress }"></div>
         </div>
-        <div v-if="progress != '100%'" style="position:relative">
+        <div v-if="progress != '100%'" style="position: relative">
             <VocCard v-if="nextVoc !== undefined" :voc="nextVoc" :inverted="false" />
             <VocCard v-if="nextVoc === undefined && currentVoc !== undefined" :voc="currentVoc" :inverted="false" />
-            <div style="position:absolute;top:0px;width:calc(100vw - 30px);">
+            <div style="position: absolute; top: 0px; width: calc(100vw - 30px)">
                 <transition :name="currentVocAnimation" @after-leave="calcNextVoc">
                     <v-touch
                         v-if="currentVocStatus == null"
@@ -26,7 +26,6 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import * as API from "../API";
 
-const TIMES_CORRECT_DONE = 3;
 @Component({})
 export default class VocCardDeck extends Vue {
     private loading = true;

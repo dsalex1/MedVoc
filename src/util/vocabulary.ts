@@ -59,13 +59,17 @@ const getAONomPlA = (v: AdjDec, g: "m" | "f" | "n") => v.vocM.slice(0, -2) + (g 
 const getAOGenPlA = (v: AdjDec, g: "m" | "f" | "n") => v.vocM.slice(0, -2) + (g == "m" ? "orum" : g == "f" ? "arum" : "orum");
 
 const getKNomSgA = (v: AdjDec, g: "m" | "f" | "n") => (g != "n" || !v.vocN ? v.vocM : v.vocN);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getKGenSgA = (v: AdjDec, g: "m" | "f" | "n") => v.vocG;
 const getKNomPlA = (v: AdjDec, g: "m" | "f" | "n") => v.vocG?.slice(0, -2) + (g != "n" ? "es" : "ia");
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getKGenPlA = (v: AdjDec, g: "m" | "f" | "n") => v.vocG?.slice(0, -2) + "ium";
 
 const getINomSgA = (v: AdjDec, g: "m" | "f" | "n") => (g != "n" || !v.vocN ? v.vocM : v.vocM?.slice(0, -2) + "e");
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getIGenSgA = (v: AdjDec, g: "m" | "f" | "n") => (v.vocG || v.vocM).slice(0, -2) + "is";
 const getINomPlA = (v: AdjDec, g: "m" | "f" | "n") => (v.vocG || v.vocM).slice(0, -2) + (g != "n" ? "es" : "ia");
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getIGenPlA = (v: AdjDec, g: "m" | "f" | "n") => (v.vocG || v.vocM).slice(0, -2) + "ium";
 
 const getDecA = (v: NounDec) => [getANomSg(v), getAGenSg(v), getANomPl(v), getAGenPl(v)];
